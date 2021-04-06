@@ -1,0 +1,47 @@
+{
+    "name": "core",
+    "version": "1.0.0",
+    "description": "Low level APIs to store did and schemas; Later this will get converted into blockchain",
+    "main": "app.js",
+    "scripts": {
+        "start": "NODE_ENV=production node dist/app.js",
+        "prod": "NODE_ENV=production node dist/api.bundle.js",
+        "dev": "NODE_ENV=development nodemon src/app.ts",
+        "build:dev": "rimraf dist && tsc -p .",
+        "build:prod": "rimraf dist && webpack",
+        "lint": "eslint . --ext .ts",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Vishwas Anand Bhushan",
+    "license": "MIT",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "express-rate-limit": "^5.2.6",
+        "helmet": "^4.4.1",
+        "hypersign-auth-js-sdk": "^1.3.7",
+        "mongoose": "^5.12.3",
+        "swagger-ui-express": "^4.1.6",
+        "uuid": "^8.3.2",
+        "winston": "^3.3.3",
+        "xss-clean": "^0.1.1"
+    },
+    "devDependencies": {
+        "@types/body-parser": "^1.17.0",
+        "@types/cors": "^2.8.5",
+        "@types/method-override": "0.0.31",
+        "@types/morgan": "^1.7.35",
+        "@types/node": "^12.6.1",
+        "@typescript-eslint/eslint-plugin": "^4.18.0",
+        "@typescript-eslint/parser": "^4.18.0",
+        "eslint": "^7.22.0",
+        "nodemon": "^1.19.1",
+        "rimraf": "^2.6.3",
+        "ts-loader": "^8.0.18",
+        "ts-node": "^9.1.1",
+        "typescript": "^4.2.3",
+        "webpack": "^5.27.1",
+        "webpack-cli": "^4.5.0"
+    }
+}

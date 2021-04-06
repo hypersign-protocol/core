@@ -1,41 +1,51 @@
-## SSI-Demo
+## APIs
 
-Sample implementation of proposed  [DID](https://www.w3.org/TR/did-core/) by the [W3C Credential Community Group](https://w3c-ccg.github.io/)
+`/did http://127.0.0.1:5000/api/v1/did/`
 
-## Components
+Supported Methods: `GET`, `POST`
 
-1. **Core**: Middleware to create did (i.e onboarding) and manages registry
-2. **Issuers**: One who issue verifiable credentials.
-3. **Verifier**: One who verifies verifiable credentials.
 
-## Highlevel Architecture
+`/schema http://127.0.0.1:5000/api/v1/schema/`
 
-![img](docs/architecture.png)
+Supported Methods: `GET`, `POST`
 
-- SSI Middleware: Manages the required list of APIs.
-- SSI Registry: Stores the DID, DID-Doc, Schemea etc.
 
-## Onboarding Flow
+## Install and usage
 
-[Onboarding](ssi-infa/README.md)
+Install dependencies
+```bash
+npm i 
+```
 
-## Issuance Flow
+Development
 
-[Issuance](issuer/README.md)
+```bash
+npm run dev 
+```
 
-## Verification Flow
+```
+npm run build:dev
+npm run start  
+```
 
-[Verification](issuer/README.md)
+Production
 
-## Reference
+```bash
+npm run build:prod 
+npm run prod #production
+```
+Note: Create `production.env` for production run
 
-- https://www.w3.org/TR/vc-data-model/ 
-- https://www.w3.org/TR/vc-imp-guide/ 
-- [DID Implementation Guide v1.0](https://github.com/w3c/did-imp-guide)
-- [Decentralized Identifier Specification v1.0](https://github.com/w3c/did-core)
-- [Decentralized Identifier Core Registries v1.0](https://github.com/w3c/did-spec-registries)
-- [Decentralized Identifier Use Cases v1.0](https://github.com/w3c/did-use-cases)
-- https://livebook.manning.com/book/self-sovereign-identity/chapter-7/v-5/31
-- https://www.w3.org/TR/vc-data-model/#lifecycle-details
-- [Cryptographic Accumulator](https://medium.com/@aurelcode/cryptographic-accumulators-da3aa4561d77)
-- [](https://github.com/jandrieu/rebooting-the-web-of-trust-fall2016/blob/master/topics-and-advance-readings/a-technology-free-definition-of-self-sovereign-identity.pdf)
+### Dockerization
+
+Build docker image
+```
+npm run build:prod
+docker build -t ts-boilerplate .  # build an image
+```
+
+Run container
+```
+docker run -p 5000:5000 -d ts-boilerplate
+```
+Note: Create `production.env` for production run
