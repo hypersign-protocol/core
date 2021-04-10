@@ -1,7 +1,6 @@
 import { logger } from "../config";
 import { Request, Response } from "express";
 import SchemaModel, { ISchema } from "../models/schema";
-// import InvestorModel, {IInvestor} from "../models/did";
 
 async function registerSchema(req: Request, res: Response) {
   try {
@@ -10,13 +9,14 @@ async function registerSchema(req: Request, res: Response) {
       return res.status(400).send("Error: Invalid schema");
     }
 
-    const { id: schemaId } = schema;
+    const { id: schemaId, author } = schema;
     if(!schemaId) {
       return res.status(400).send("Error: Invalid schema");
     }
 
     const newEmp: ISchema = await SchemaModel.create({
       schemaId, 
+      author,
       schemaString: JSON.stringify(schema)
     });
     return res.status(200).send(newEmp);
@@ -29,7 +29,15 @@ async function registerSchema(req: Request, res: Response) {
 
 async function getSchemaList(req: Request, res: Response) {
   try {
-    const employeeList:Array<ISchema> = await SchemaModel.find({});
+
+    const { author } =  req.query;
+    let employeeList:Array<ISchema>;
+    if(author){
+      employeeList = await SchemaModel.where({author: author}).find();
+      return res.status(200).send(employeeList);  
+    }
+
+    employeeList = await SchemaModel.find({});
     return res.status(200).send(employeeList);
   } catch (e) {
     logger.error('InvestorCtrl:: getAllProject(): Error ' + e);
@@ -40,10 +48,22 @@ async function getSchemaList(req: Request, res: Response) {
 async function getSchemaById(req: Request, res: Response) {
   try {
     const { schemaId } = req.params;
-    const investor:ISchema = await SchemaModel.where({schemaId: schemaId}).findOne();
+    const { author } =  req.query;
+
+    const query = {};
+
+    query["schemaId"] = schemaId;
+
+    if(author){
+      query["author"] = author;
+    }
+
+    console.log(query);
+
+    const investor:ISchema = await SchemaModel.where(query).findOne();
 
     if(!investor){
-      return res.status(400).send("Error: Invalid schemaId")
+      return res.status(400).send("Error: No record found")
     }
 
     const { schemaString } = investor;
