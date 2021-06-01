@@ -18,7 +18,7 @@ const app = express();
   
 
 
-var whitelist = ['https://wallet.hypermine.in']
+var whitelist = ['https://*.hypermine.in']
 var corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
