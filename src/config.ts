@@ -16,6 +16,7 @@ class Configuration {
   private LOG_LEVEL: string;
   public dataDIR: string;
   private dbConnUrl: string;
+  public whitelistedUrls: any;
 
   private constructor() {}
 
@@ -37,6 +38,7 @@ class Configuration {
     this.NODE_ENV = process.env.NODE_ENV ? process.env.NODE_ENV : "development";
     this.dbConnUrl = process.env.DB_URL;
     this.baseUrl = "http://" + this.HOST + ":" + this.PORT;
+    this.whitelistedUrls = process.env.WHITELISTED_CORS ? process.env.WHITELISTED_CORS : ['*'];
 
     this.dataDIR = process.env.DATA_DIR
       ? process.env.DATA_DIR
@@ -110,5 +112,6 @@ const {
   PORT,
   baseUrl,
   logger,
+  whitelistedUrls
 } = Configuration.getInstance();
-export { db, NODE_ENV, HOST, PORT, baseUrl, logger };
+export { db, NODE_ENV, HOST, PORT, baseUrl, logger, whitelistedUrls };
