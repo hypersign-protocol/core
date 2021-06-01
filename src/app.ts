@@ -17,10 +17,23 @@ const app = express();
 //   });
   
 
+
+var whitelist = ['https://wallet.hypermine.in']
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+
+
 app.use(helmet());
 // app.use(limiter);
 app.use(xss());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json({ limit: '10kb' }));
 
 // app.use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(swaggerJsDoc))
